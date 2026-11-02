@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/minded?serverTimezone=Asia/Shanghai
+    username: root
+    password: your_password # 提示用户填自己的密码
+  redis:
+    host: localhost
+    port: 6379
+    # ...

@@ -1,0 +1,86 @@
+spring:
+  application:
+    name: Minded-Backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 【修改点1】修复了 MySQL 8 的 SSL 连接问题
+    url: jdbc:mysql://localhost:3306/minded?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  # session 失效时间（24小时）
+  session:
+    timeout: 86400
+    store-type: redis
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  # 配置 Redis 数据源
+  redis:
+    port: 6379
+    host: localhost
+    database: 1
+    # password: your_password  # 本地没有密码，这里保持注释
+  # 配置文件上传的大小
+  servlet:
+    multipart:
+      max-file-size: 5MB
+  profiles:
+    active: prod
+
+  # 邮箱服务配置 (如果你注册不需要邮箱验证码，这里不用改；如果需要，请换成你真实的账号和授权码)
+  mail:
+    host: smtp.163.com
+    protocol: smtp
+    username: your_email
+    password: your_password
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          port: 994
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+      mail.smtp.starttls.enable: true
+    display:
+      sendmail: aaa
+      sendname: bbb
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  reactive:
+    session:
+      cookie:
+        domain: localhost
+
+# Mybatis Plus
+mybatis-plus:
+  global-config:
+    db-config:
+      table-underline: false # 设置表名不使用下划线方式
+      logic-delete-field: isDelete # 全局逻辑删除字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+  configuration:
+    map-underscore-to-camel-case: false # 设置字段不使用下划线方式
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# MyBatis
+mybatis:
+  # 【修改点2】把 mappers 改成了 mapper（根据你的文件夹结构）
+  mapper-locations: classpath:mapper/*.xml
+  # 【修改点3】把包路径改成了项目实际的 pojo 包
+  type-aliases-package: com.yz.minded.pojo
+
+aliyun:
+  oss:
+    endpoint: oss-cn-shenzhen.aliyuncs.com
+    bucket: huoban-oss-2026
+    domain: https://huoban-oss-2026.oss-cn-shenzhen.aliyuncs.com/ # 注意末尾有斜杠
+    access-key-id: ${OSS_AK_ID}
+    access-key-secret: ${OSS_AK_SECRET}

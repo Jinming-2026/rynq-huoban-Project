@@ -1,0 +1,28 @@
+# ========= 后端 Java 相关 =========
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+.idea/
+*.iml
+*.iws
+*.ipr
+*.log
+
+# ========= 配置文件（重要！防止密码泄露） =========
+# 如果你在父目录建了这个文件，记得把后端的真实配置文件忽略掉
+Minded-Backend/src/main/resources/application-prod.yml
+# 如果你想彻底忽略真实的 application.yml，也加上这行：
+# Minded-Backend/src/main/resources/application.yml
+
+# ========= 前端 Node 相关 =========
+node_modules/
+dist/
+.vite/
+.idea/
+.vscode/
+*.local
+
+# ========= 系统文件 =========
+.DS_Store
+Thumbs.db
